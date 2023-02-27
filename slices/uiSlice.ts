@@ -21,14 +21,6 @@ export const uiSlice = createSlice({
       state.searchedPokemons = action.payload;
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.ui,
-      };
-    },
-  },
 });
 
 export const { setLoading, setSearch, setSearchedPokemons } = uiSlice.actions;

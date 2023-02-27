@@ -1,8 +1,8 @@
 import * as React from "react";
+import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
-
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -11,8 +11,7 @@ import "@fontsource/roboto/700.css";
 import createEmotionCache from "../utils/createEmotionCache";
 import lightThemeOptions from "../styles/theme/lightTemeOptions";
 import "../styles/globals.css";
-
-import { wrapper } from "../store/store";
+import { store } from "../store/store";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
@@ -29,10 +28,12 @@ const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </ThemeProvider>
     </CacheProvider>
   );
 };
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
